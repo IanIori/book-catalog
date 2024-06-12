@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Pagination, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 
+import './styles.css'
+
 interface Book {
   titulo: string;
   autor: string;
@@ -25,7 +27,8 @@ export default function ListaLivros() {
   const fetchBooks = async (page: number) => {
     try {
       const response = await axios.get(`http://localhost:3000/${page}`);
-      setBooks(response.data.resultado);
+      const fetchedBooks = response.data.resultado
+      setBooks(fetchedBooks)
       const totalLivros = response.data.totalLivros.livros;
       setTotalPages(Math.ceil(totalLivros / booksPerPage));
     } catch (error) {
@@ -61,11 +64,15 @@ export default function ListaLivros() {
           ))}
         </TableBody>
       </Table>
-      <Pagination 
-        total={totalPages}
-        initialPage={currentPage}
-        onChange={handlePageChange}
-      />
+      <div className="pagination-container">
+        <Pagination 
+          total={totalPages}
+          initialPage={currentPage}
+          onChange={handlePageChange}
+        />
+      </div>
     </>
   );
 }
+
+

@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors'
 
 // URL de conexão com o MongoDB
 const uri = 'mongodb://localhost:27017/biblioteca'; 
@@ -9,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const ip = "localhost";
 
 // Middleware para analisar o corpo das solicitações JSON
-app.use(express.json());
+app.use(cors());
 
 // Conectar ao MongoDB usando Mongoose
 mongoose.connect(uri, {
